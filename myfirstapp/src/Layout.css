@@ -1,0 +1,15 @@
+.dark {
+    color:#fff;
+    background-color: #333;
+    height: 100vh;
+}
+
+.light {
+    color:#333;
+    background-color: #fff;
+    height: 100vh;
+}
+
+.theme-charcater {
+    text-transform: capitalize;
+}

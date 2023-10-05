@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 function App() {
 
@@ -19,11 +20,18 @@ function App() {
 
   const [count,setCount] = useState(0)
 
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    // will execute code in each count update
+    if(count > 10){
+      navigate("/about")
+    }
+  },[count])
 
   // useEffect(()=>{
   //   //request for new page data
   // },[count])
-
 
   return (
     <div className="App">
@@ -32,9 +40,23 @@ function App() {
           Hi There : {count}
         </p>
 
-        <button onClick={() => {
+        <button className='btn' onClick={() => {
           setCount(count + 1)
         }}>Count Up</button>  
+
+        {/* {
+          count > 10 ? <Navigate to="/about" /> : <></>
+        } */}
+
+        <button onClick={()=>{
+          //javasctipt
+          navigate("/about")
+        }}>About Page</button>
+
+
+        <Link to={"/about"}>
+          <button>About Page</button>
+        </Link>
       </header>
     </div>
   );
