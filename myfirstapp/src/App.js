@@ -1,63 +1,63 @@
 import logo from './logo.svg';
+import axios from "axios"
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import poster from "./images/image 14.png"
 
 function App() {
 
-  // const [isClicked,seIsClicked] = useState(false)
-
-  // useEffect(()=>{
-  //   // lifecycle
-  //   console.log("mounted")
-  // },[])
-
-  // useEffect(()=>{
-  //   // updating
-  //   console.log("the button has been clicked",isClicked)
-  // },[isClicked])
-
-
-  const [count,setCount] = useState(0)
-
-  const navigate = useNavigate()
+  const [movies,setMovies] = useState([])
 
   useEffect(()=>{
-    // will execute code in each count update
-    if(count > 10){
-      navigate("/about")
-    }
-  },[count])
 
-  // useEffect(()=>{
-  //   //request for new page data
-  // },[count])
+    axios.get('http://www.omdbapi.com/?apikey=2fb1db83&s=Inception')
+    .then(function (response) {
+      // handle success
+
+      setMovies(response.data.Search.slice(0,4))
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .finally(function () {
+      // always executed
+    });
+
+  },[])
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Hi There : {count}
-        </p>
+    <div className='container mx-auto'>
+    
+      <div className='grid grid-cols-12'>
+        <div>
+          <h3>Movies</h3>
+        </div>
+      </div>
 
-        <button className='btn' onClick={() => {
-          setCount(count + 1)
-        }}>Count Up</button>  
+      <div className='grid grid-cols-4'>
 
-        {/* {
-          count > 10 ? <Navigate to="/about" /> : <></>
-        } */}
+        {
+          movies.map(movie => 
+          <div className='relative'>
+            <img src={movie.Poster} />
+            <div className='info flex flex-col gap-2 absolute bottom-7 left-7 text-white font-bold'>
+              <span className='font-black'>{movie.Title}</span>
 
-        <button onClick={()=>{
-          //javasctipt
-          navigate("/about")
-        }}>About Page</button>
+              <span>{movie.Year}</span>
 
+              <span>{movie.imdbID}</span>
 
-        <Link to={"/about"}>
-          <button>About Page</button>
-        </Link>
-      </header>
+              <span className='capitalize'>{movie.Type}</span>
+            </div>
+          </div>
+        )
+        }
+        
+
+      </div>
+    
     </div>
   );
 }

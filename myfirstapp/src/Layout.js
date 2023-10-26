@@ -8,8 +8,8 @@ const Layout = () => {
         localStorage.getItem("theme") || "light"
     )
 
-    return <div className={theme}>
-        <header style={{backgroundColor:"green"}}>
+    return <div>
+        {/* <header style={{backgroundColor:"green"}}>
             <button onClick={() => {
                 const newTheme = theme === "light" ? "dark" : "light";
 
@@ -20,9 +20,9 @@ const Layout = () => {
                 <span className="theme-charcater">{theme}</span> Mode
                 
             </button>
-        </header>
+        </header> */}
         <Outlet />
-        <footer style={{backgroundColor:"blue"}}>Footer</footer>  
+        {/* <footer style={{backgroundColor:"blue"}}>Footer</footer>   */}
     </div>
 }
 
